@@ -1,0 +1,52 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        <a href="/Json/ClientInfo/">Test Controller Method</a>
+    </p>
+    <div id="clientList"></div> <!-- Місце для вставки блоків -->
+
+    <button id="button">Завантажити дані</button>
+
+    <script>
+        let btn = document.querySelector("#button");
+        let xhr = new XMLHttpRequest();
+
+        btn.addEventListener("click", () => {
+            xhr.open("GET", "/json/clientinfo");
+            xhr.onload = () => {
+                let response = JSON.parse(xhr.response);
+
+                let clientList = document.querySelector("#clientList");
+
+                // Генеруємо та додаємо блоки для кожного клієнта
+                for (let i = 0; i < response.length; i++) {
+                    let client = response[i];
+                    let clientBlock = document.createElement("div");
+                    clientBlock.innerHTML = `
+                            <p>Id: ${client.id}</p>
+                            <p>Login: ${client.login}</p>
+                            <p>Email: ${client.email}</p>
+                            <hr> <!-- Роздільник між блоками -->
+                        `;
+                    clientList.appendChild(clientBlock);
+                }
+            }
+            xhr.send();
+        })
+    </script>
+
+
+</body>
+</html>
