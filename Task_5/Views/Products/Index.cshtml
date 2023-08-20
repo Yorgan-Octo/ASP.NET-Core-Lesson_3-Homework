@@ -1,0 +1,13 @@
+﻿@using Task_5.Models;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@foreach (Item el in ViewBag.ItemCollection)
+{
+    <p>Id: @el.Id<br> Name: @el.Name <br> Price: @el.Price</p>
+    <p>-----------------------</p>
+}
+
+
